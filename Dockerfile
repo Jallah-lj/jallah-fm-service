@@ -8,8 +8,8 @@ RUN apk add --no-cache gcc musl-dev
 COPY go.mod go.sum ./
 RUN go mod download
 
-# Install goose migration tool
-RUN go install github.com/pressly/goose/v3/cmd/goose@latest
+# Install goose migration tool (pinned to version compatible with Go 1.24)
+RUN go install github.com/pressly/goose/v3/cmd/goose@v3.22.0
 
 COPY . .
 
