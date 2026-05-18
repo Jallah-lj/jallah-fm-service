@@ -1,10 +1,9 @@
 resource "aws_apprunner_service" "app" {
-  provider     = aws.us_east_1
-  service_name = var.environment
+  service_name = var.name
 
   source_configuration {
     authentication_configuration {
-      access_role_arn = aws_iam_role.app_runner_access.arn
+      access_role_arn = data.aws_iam_role.access.arn
     }
 
     image_repository {
@@ -15,7 +14,7 @@ resource "aws_apprunner_service" "app" {
         port = var.app_port
 
         runtime_environment_secrets = {
-          POSTGRES_URL = "arn:aws:ssm:${local.app_runner_region}:${local.account_id}:parameter/POSTGRES_URL"
+          POSTGRES_URL = "arn:aws:ssm:us-east-1:${local.account_id}:parameter/POSTGRES_URL"
         }
       }
     }
@@ -24,6 +23,6 @@ resource "aws_apprunner_service" "app" {
   }
 
   instance_configuration {
-    instance_role_arn = aws_iam_role.app_runner_instance.arn
+    instance_role_arn = data.aws_iam_role.instance.arn
   }
 }

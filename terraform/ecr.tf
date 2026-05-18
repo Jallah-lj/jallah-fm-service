@@ -1,4 +1,5 @@
 resource "aws_ecr_repository" "app" {
+  provider             = aws.us_west_2
   name                 = var.app_name
   image_tag_mutability = "MUTABLE"
 
