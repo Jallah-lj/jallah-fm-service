@@ -65,16 +65,16 @@ jobs:
       - run: |
           BUILD_TAG=staging
 
-          if [[ "\${GITHUB_REF}" == "refs/heads/prod" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/prod" ]]; then
             BUILD_TAG=prod
           fi
 
-          ECS_CLUSTER_NAME=\${BUILD_TAG}
-          ECS_SERVICE_NAME=\${ECS_CLUSTER_NAME}-service
+          ECS_CLUSTER_NAME=${BUILD_TAG}
+          ECS_SERVICE_NAME=${ECS_CLUSTER_NAME}-service
 
-          echo "BUILD_TAG: \${BUILD_TAG}"
-          echo "ECS_CLUSTER_NAME: \${ECS_CLUSTER_NAME}"
-          echo "ECS_SERVICE_NAME: \${ECS_SERVICE_NAME}"
+          echo "BUILD_TAG: ${BUILD_TAG}"
+          echo "ECS_CLUSTER_NAME: ${ECS_CLUSTER_NAME}"
+          echo "ECS_SERVICE_NAME: ${ECS_SERVICE_NAME}"
 
-          make BUILD_TAG=\$BUILD_TAG build-image-promote
-          make ECS_CLUSTER_NAME=\$ECS_CLUSTER_NAME ECS_SERVICE_NAME=\$ECS_SERVICE_NAME deploy
+          make BUILD_TAG=$BUILD_TAG build-image-promote
+          make ECS_CLUSTER_NAME=$ECS_CLUSTER_NAME ECS_SERVICE_NAME=$ECS_SERVICE_NAME deploy
