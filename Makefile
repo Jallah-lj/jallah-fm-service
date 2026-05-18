@@ -97,3 +97,4 @@ migrate-validate:
 
 start: build
 	./goals
+# Triggering new build
